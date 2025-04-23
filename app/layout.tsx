@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+
+import { Press_Start_2P } from "next/font/google";
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
+  weight: "400", // Only one weight
+  variable: "--font-press-start",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   title: "Maze Path Finder",
   description:
@@ -25,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased custom-wood-dark`}
-      >
+      <body className={`${pressStart2P.variable}  custom-wood-dark`}>
         {children}
       </body>
     </html>

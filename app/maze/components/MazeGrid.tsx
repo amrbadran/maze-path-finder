@@ -1,9 +1,6 @@
 import React from "react";
 
-const MazeGrid = () => {
-  const rows = 30;
-  const cols = 8;
-
+const MazeGrid = ({ rows, cols }: { rows: number; cols: number }) => {
   return (
     <div className="w-full max-w-5xl mx-auto border-2 border-[#a97451] rounded-lg shadow-md">
       <div

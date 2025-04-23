@@ -4,6 +4,10 @@
   --wood-light: #d6b58b;
   --wood-dark: #6e4b34;
 }
+body {
+  font-family: var(--font-press-start), monospace;
+  font-size: 12px;
+}
 
 .custom-wood {
   background-color: var(--wood);
