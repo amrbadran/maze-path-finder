@@ -1,6 +1,8 @@
-export default function Home() {
+import React from "react";
+
+const MazeGrid = () => {
   const rows = 30;
-  const cols = 30;
+  const cols = 8;
 
   return (
     <div className="w-full max-w-5xl mx-auto border-2 border-[#a97451] rounded-lg shadow-md">
@@ -17,9 +19,9 @@ export default function Home() {
               <div
                 key={`${rowIdx}-${colIdx}`}
                 className={`
-                  bg-gradient-to-tl from-[#6e4b34] to-[#885d40]
-
-                  relative aspect-square flex items-center justify-center overflow-hidden`}
+                      bg-gradient-to-tl from-[#6e4b34] to-[#885d40]
+    
+                      relative aspect-square flex items-center justify-center overflow-hidden`}
                 style={{
                   minWidth: "30px",
                   minHeight: "30px",
@@ -33,4 +35,6 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default MazeGrid;
