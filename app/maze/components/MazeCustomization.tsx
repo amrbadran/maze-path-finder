@@ -13,7 +13,7 @@ const MazeCustomization = ({
   handleRows: (value: number) => void;
   handleCols: (value: number) => void;
 }) => {
-  const [formState, setFormState] = useState({ rows: "", cols: "" });
+  const [formState, setFormState] = useState({ rows: Rows, cols: Cols });
   return (
     <div className="flex max-lg:flex-col max-lg:justify-center max-lg:items-center justify-center border-2 border-[#a97451] shadow rounded-lg mx-auto w-full max-w-5xl py-8 px-4 my-8">
       <div className="mr-8">
@@ -43,8 +43,8 @@ const MazeCustomization = ({
           label="Generate Maze"
           colorKey="blue"
           handler={() => {
-            handleRows(parseInt(formState.rows, 10));
-            handleCols(parseInt(formState.cols, 10));
+            handleRows(formState.rows);
+            handleCols(formState.cols);
           }}
         />
       </div>
