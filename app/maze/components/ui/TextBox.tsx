@@ -6,7 +6,7 @@ const TextBox = ({
 }: {
   label: string;
   defaultValue: number;
-  onChangeHandler: (value: number) => void;
+  onChangeHandler: (e: any) => void;
 }) => {
   return (
     <>
@@ -18,14 +18,7 @@ const TextBox = ({
             rounded-lg shadow-md w-64 h-12 focus:border-white text-center transition duration-200 ease-in 
            "
         defaultValue={defaultValue}
-        onChange={(e) => {
-          const value = parseInt(e.target.value);
-          if (!isNaN(value)) {
-            onChangeHandler(value);
-          } else {
-            onChangeHandler(0);
-          }
-        }}
+        onChange={onChangeHandler}
       />
     </>
   );

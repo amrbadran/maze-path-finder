@@ -15,7 +15,7 @@ export default function Home() {
         handleRows={setRows}
         handleCols={setCols}
       />
-      <MazeGrid rows={DEFAULT_VALUE_ROWS_COLS} cols={DEFAULT_VALUE_ROWS_COLS} />
+      <MazeGrid rows={rows} cols={cols} />
     </>
   );
 }
