@@ -1,26 +1,34 @@
-"use client";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 
-const tiles = ["water.gif", "grass.gif", "wall.jpg"];
-
-const Tile = () => {
-  const [randomTile, setRandomTile] = useState<string | null>(null);
-  const [tileHeight, setTileHeight] = useState<number>(0);
-
-  useEffect(() => {
-    const tile = tiles[Math.floor(Math.random() * tiles.length)];
-    const height = (Math.floor(Math.random() * 10) + 1) * 10;
-    setRandomTile(tile);
-    setTileHeight(height);
+const Tile = ({
+  tileHeight,
+  elevation,
+}: {
+  tileHeight: string;
+  elevation: number;
+}) => {
+  const background = useMemo(() => {
+    const rand = Math.floor(Math.random() * 3);
+    return rand === 0 ? "water.gif" : rand === 1 ? "grass.gif" : "wall.jpg";
   }, []);
-
-  if (!randomTile) return null;
 
   return (
     <div
-      className={`absolute bg-cover bg-[url(/assets/${randomTile})] w-full h-[${tileHeight}%] bottom-0 text-center`}
+      className="bg-gradient-to-tl from-[#6e4b34] to-[#885d40] relative aspect-square flex items-center justify-center overflow-hidden"
+      style={{
+        minWidth: "30px",
+        minHeight: "30px",
+      }}
     >
-      {tileHeight / 10}
+      <div
+        className="absolute bg-cover flex justify-center items-center w-full bottom-0 text-center"
+        style={{
+          height: `${tileHeight}`,
+          backgroundImage: `url(/assets/${background})`,
+        }}
+      >
+        {elevation}
+      </div>
     </div>
   );
 };

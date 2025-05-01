@@ -26,6 +26,8 @@ export default function Home() {
                 }}
               >
                 {`(${rowIdx}, ${colIdx})`}
+
+                
               </div>
             );
           });

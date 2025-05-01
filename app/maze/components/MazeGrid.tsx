@@ -1,4 +1,3 @@
-"use client";
 import Tile from "./Tile";
 const MazeGrid = ({ rows, cols }: { rows: number; cols: number }) => {
   return (
@@ -15,33 +14,11 @@ const MazeGrid = ({ rows, cols }: { rows: number; cols: number }) => {
             const elevation = Math.floor(Math.random() * 10) + 1;
             const tileHeight = `${+elevation * 10}%`;
             return (
-              <div
+              <Tile
                 key={`${rowIdx}-${colIdx}`}
-                className={`
-                      bg-gradient-to-tl from-[#6e4b34] to-[#885d40]
-    
-                      relative aspect-square flex items-center justify-center overflow-hidden`}
-                style={{
-                  minWidth: "30px",
-                  minHeight: "30px",
-                }}
-              >
-                <div
-                  className={`absolute bg-cover flex justify-center items-center w-full bottom-0 text-center`}
-                  style={{
-                    height: `${tileHeight}`,
-                    backgroundImage: `url(/assets/${
-                      Math.floor(Math.random() * 3) === 0
-                        ? "water.gif"
-                        : Math.floor(Math.random() * 3) === 1
-                        ? "grass.gif"
-                        : "wall.jpg"
-                    })`,
-                  }}
-                >
-                  {elevation}
-                </div>
-              </div>
+                tileHeight={tileHeight}
+                elevation={elevation}
+              />
             );
           });
         })}

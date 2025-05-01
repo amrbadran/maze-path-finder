@@ -7,11 +7,13 @@ const MazeCustomization = ({
   Cols,
   handleRows,
   handleCols,
+  regenerateMaze,
 }: {
   Rows: number;
   Cols: number;
   handleRows: (value: number) => void;
   handleCols: (value: number) => void;
+  regenerateMaze: () => void;
 }) => {
   const [formState, setFormState] = useState({ rows: Rows, cols: Cols });
   return (
@@ -45,6 +47,7 @@ const MazeCustomization = ({
           handler={() => {
             handleRows(formState.rows);
             handleCols(formState.cols);
+            regenerateMaze();
           }}
         />
       </div>
