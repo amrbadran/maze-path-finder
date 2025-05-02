@@ -48,14 +48,6 @@ export default function Home() {
 
   return (
     <>
-      <MazeCustomization
-        Rows={rows}
-        Cols={cols}
-        handleRows={setRows}
-        handleCols={setCols}
-        regenerateMaze={() => setMazeKey((prev) => prev + 1)}
-      />
-
       <GridContext.Provider
         value={{
           gridData,
@@ -66,6 +58,14 @@ export default function Home() {
           setEndPosition,
         }}
       >
+        <MazeCustomization
+          Rows={rows}
+          Cols={cols}
+          handleRows={setRows}
+          handleCols={setCols}
+          regenerateMaze={() => setMazeKey((prev) => prev + 1)}
+        />
+
         <MazeGrid rows={rows} cols={cols} mazeKey={mazeKey} />
       </GridContext.Provider>
     </>
