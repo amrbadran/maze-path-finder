@@ -31,7 +31,14 @@ const MazeGrid = ({
         const tileType =
           randomValuesTile[Math.floor(Math.random() * randomValuesTile.length)];
         const minObstacleDistance = Infinity;
-        return { elevation, tileHeight, tileType, minObstacleDistance };
+        const isOnPath = false;
+        return {
+          elevation,
+          tileHeight,
+          tileType,
+          minObstacleDistance,
+          isOnPath,
+        };
       })
     );
     setGridData(data);
@@ -76,6 +83,7 @@ const MazeGrid = ({
                 startPosition?.row === rowIdx && startPosition?.col === colIdx
               }
               isEnd={endPosition?.row === rowIdx && endPosition?.col === colIdx}
+              isOnPath={tile.isOnPath}
             />
           ))
         )}

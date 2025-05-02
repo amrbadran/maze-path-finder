@@ -1,5 +1,5 @@
 "use client";
-const COLORS = {
+export const COLORS = {
   red: "from-red-500 to-red-700 hover:from-red-700 hover:to-red-500",
   blue: "from-blue-600 to-blue-800 hover:from-blue-800 hover:to-blue-600",
   green: "from-green-500 to-green-700 hover:from-green-700 hover:to-green-500",

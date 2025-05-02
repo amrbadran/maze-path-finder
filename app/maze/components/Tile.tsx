@@ -8,6 +8,7 @@ const Tile = ({
   onTileClick,
   isStart,
   isEnd,
+  isOnPath,
 }: {
   tileHeight: string;
   elevation: number;
@@ -15,6 +16,7 @@ const Tile = ({
   onTileClick?: () => void;
   isStart?: boolean;
   isEnd?: boolean;
+  isOnPath?: boolean;
 }) => {
   const background = () => {
     return TileType === 1
@@ -60,6 +62,11 @@ const Tile = ({
           {elevation}
         </span>
       </div>
+      {isOnPath && (
+        <span
+          className={`w-6 h-6 rounded-full bg-blue-600 border-2 border-white absolute z-20 `}
+        ></span>
+      )}
     </div>
   );
 };

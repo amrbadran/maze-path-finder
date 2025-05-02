@@ -7,6 +7,9 @@ import Button from "./ui/Button";
 import GridPreparation from "../helper/GridPreparation";
 import PathFinder from "../API/PathFinder";
 import { trainPerceptronModel } from "../API/trainer";
+import PathDrawer from "../helper/PathDrawer";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 const MazeCustomization = ({
   Rows,
   Cols,
@@ -84,7 +87,23 @@ const MazeCustomization = ({
             const startPoint = startPosition;
             const endPoint = endPosition;
             if (!startPoint || !endPoint) {
-              alert("Please select start and end points.");
+              const MySwal = withReactContent(Swal);
+
+              MySwal.fire({
+                title: "Error!",
+                text: "You must select start and end points first.",
+                icon: "error",
+                confirmButtonText: "OK",
+                buttonsStyling: false,
+
+                customClass: {
+                  confirmButton: `
+                   px-8 py-3 border outline-0 rounded-lg font-medium text-md
+           bg-gradient-to-tl transition duration-200 ease-in-out
+           cursor-pointer
+           focus:outline-none focus:ring-2 focus:ring-[#885d40] focus:ring-opacity-50`,
+                },
+              });
               return;
             }
             const start = {
@@ -95,14 +114,14 @@ const MazeCustomization = ({
               row: endPoint.row,
               col: endPoint.col,
             };
-            console.log(
-              await PathFinder(
-                GridPrepared,
-                start,
-                end,
-                await trainPerceptronModel()
-              )
+            const result = await PathFinder(
+              GridPrepared,
+              start,
+              end,
+              await trainPerceptronModel()
             );
+            console.log(result);
+            PathDrawer(gridData, setGridData, result.path);
           }}
         />
       </div>
