@@ -13,7 +13,7 @@ export function trainPerceptron(
     let totalError = 0;
 
     for (const { inputs, YActual } of data) {
-      const prediction = predict(inputs);
+      const prediction = predict(inputs, weights, bias);
       const error = YActual - prediction;
 
       if (error !== 0) {
@@ -33,10 +33,14 @@ export function trainPerceptron(
   return { weights, bias };
 }
 
-export function predict(features: number[]): number {
+export function predict(
+  inputs: number[],
+  weights: number[],
+  bias: number
+): number {
   let sum = bias;
-  for (let i = 0; i < features.length; i++) {
-    sum += weights[i] * features[i];
+  for (let i = 0; i < inputs.length; i++) {
+    sum += weights[i] * inputs[i];
   }
   return sum > 0 ? 1 : 0;
 }

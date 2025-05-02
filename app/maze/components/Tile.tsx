@@ -4,28 +4,27 @@ import { FaFlag, FaMapMarkerAlt } from "react-icons/fa";
 const Tile = ({
   tileHeight,
   elevation,
+  TileType,
   onTileClick,
   isStart,
   isEnd,
 }: {
   tileHeight: string;
   elevation: number;
+  TileType: number;
   onTileClick?: () => void;
   isStart?: boolean;
   isEnd?: boolean;
 }) => {
-  const randomValuesRatios = [1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2];
-
-  const background = useMemo(() => {
-    const rand = Math.floor(Math.random() * randomValuesRatios.length);
-    return randomValuesRatios[rand] === 0
+  const background = () => {
+    return TileType === 0
       ? "water.gif"
-      : randomValuesRatios[rand] === 1
+      : TileType === 1
       ? "grass.gif"
       : "wall.jpg";
-  }, []);
+  };
 
-  const isGrass = background === "grass.gif";
+  const isGrass = background() === "grass.gif";
 
   const handleClick = () => {
     if (isGrass && onTileClick) {
@@ -54,7 +53,7 @@ const Tile = ({
         className="absolute bg-cover flex justify-center items-center w-full bottom-0 text-center"
         style={{
           height: `${tileHeight}`,
-          backgroundImage: `url(/assets/${background})`,
+          backgroundImage: `url(/assets/${background()})`,
         }}
       >
         <span className="text-white text-sm font-semibold drop-shadow z-20">

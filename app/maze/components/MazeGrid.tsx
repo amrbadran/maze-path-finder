@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Tile from "./Tile";
+import { GridContext } from "../context/GridContext";
 
 const MazeGrid = ({
   rows,
@@ -10,22 +11,25 @@ const MazeGrid = ({
   cols: number;
   mazeKey: number;
 }) => {
-  const [gridData, setGridData] = useState<any[][]>([]);
-  const [startPosition, setStartPosition] = useState<{
-    row: number;
-    col: number;
-  } | null>(null);
-  const [endPosition, setEndPosition] = useState<{
-    row: number;
-    col: number;
-  } | null>(null);
+  const {
+    gridData,
+    setGridData,
+    startPosition,
+    setStartPosition,
+    endPosition,
+    setEndPosition,
+  } = useContext(GridContext);
 
   useEffect(() => {
+    const randomValuesTile = [1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2];
+
     const data = Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => {
         const elevation = Math.floor(Math.random() * 10) + 1;
         const tileHeight = `${elevation * 10}%`;
-        return { elevation, tileHeight };
+        const tileType =
+          randomValuesTile[Math.floor(Math.random() * randomValuesTile.length)];
+        return { elevation, tileHeight, tileType };
       })
     );
     setGridData(data);
@@ -45,6 +49,8 @@ const MazeGrid = ({
         setEndPosition({ row, col });
       }
     }
+
+    console.log(gridData);
   };
 
   return (
@@ -56,12 +62,13 @@ const MazeGrid = ({
         }}
         className="grid gap-[1px]"
       >
-        {gridData.map((row, rowIdx) =>
-          row.map((tile, colIdx) => (
+        {gridData.map((row: any, rowIdx: number) =>
+          row.map((tile: any, colIdx: number) => (
             <Tile
               key={`${rowIdx}-${colIdx}`}
               tileHeight={tile.tileHeight}
               elevation={tile.elevation}
+              TileType={tile.tileType}
               onTileClick={() => handleTileClick(rowIdx, colIdx)}
               isStart={
                 startPosition?.row === rowIdx && startPosition?.col === colIdx
