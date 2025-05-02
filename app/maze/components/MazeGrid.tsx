@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import Tile from "./Tile";
 import { GridContext } from "../context/GridContext";
 import GridPreparation from "../helper/GridPreparation";
-
+import { clearPath } from "../helper/PathDrawer";
 const MazeGrid = ({
   rows,
   cols,
@@ -44,22 +44,25 @@ const MazeGrid = ({
     setGridData(data);
     setStartPosition(null);
     setEndPosition(null);
+    clearPath(data, setGridData);
   }, [rows, cols, mazeKey]);
 
   const handleTileClick = (row: number, col: number) => {
     if (startPosition?.row === row && startPosition?.col === col) {
       setStartPosition(null);
+      clearPath(gridData, setGridData);
     } else if (endPosition?.row === row && endPosition?.col === col) {
       setEndPosition(null);
+      clearPath(gridData, setGridData);
     } else {
       if (!startPosition) {
         setStartPosition({ row, col });
+        clearPath(gridData, setGridData);
       } else if (!endPosition) {
         setEndPosition({ row, col });
+        clearPath(gridData, setGridData);
       }
     }
-
-    console.log(gridData);
   };
 
   return (
