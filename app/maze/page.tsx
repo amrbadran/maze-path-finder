@@ -33,6 +33,7 @@ export default function Home() {
     row: number;
     col: number;
   } | null>(null);
+
   useEffect(() => {
     const trainAndGetModel = async () => {
       await trainPerceptronModel();

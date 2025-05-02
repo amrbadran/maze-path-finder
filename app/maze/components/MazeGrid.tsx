@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import Tile from "./Tile";
 import { GridContext } from "../context/GridContext";
+import GridPreparation from "../helper/GridPreparation";
 
 const MazeGrid = ({
   rows,
@@ -29,7 +30,8 @@ const MazeGrid = ({
         const tileHeight = `${elevation * 10}%`;
         const tileType =
           randomValuesTile[Math.floor(Math.random() * randomValuesTile.length)];
-        return { elevation, tileHeight, tileType };
+        const minObstacleDistance = Infinity;
+        return { elevation, tileHeight, tileType, minObstacleDistance };
       })
     );
     setGridData(data);
