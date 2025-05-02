@@ -22,7 +22,7 @@ const MazeGrid = ({
   } = useContext(GridContext);
 
   useEffect(() => {
-    const randomValuesTile = [1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 2, 2];
+    const randomValuesTile = [0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2];
 
     const data = Array.from({ length: rows }, () =>
       Array.from({ length: cols }, () => {

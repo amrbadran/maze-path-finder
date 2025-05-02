@@ -1,8 +1,8 @@
 import { Cell } from "../types/Cell";
 
 const WALL = 2;
-const WATER = 0;
-const GRASS = 1;
+const WATER = 1;
+const GRASS = 0;
 export default function GridPreparation(grid: any[][]) {
   const rows = grid.length;
   const cols = grid[0].length;

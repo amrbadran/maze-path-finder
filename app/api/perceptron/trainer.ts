@@ -1,10 +1,10 @@
 let weights: number[] = [];
-let bias = -1;
+let bias = 1;
 const MAX_EPOCHS = 1000;
 export function trainPerceptron(
   data: { inputs: number[]; YActual: number }[],
   learningRate = 0.1,
-  maxEpochs = 100
+  maxEpochs = 10000
 ) {
   const numFeatures = data[0].inputs.length;
   weights = Array.from({ length: numFeatures }, () => Math.random() - 0.5);

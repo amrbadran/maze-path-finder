@@ -17,9 +17,9 @@ const Tile = ({
   isEnd?: boolean;
 }) => {
   const background = () => {
-    return TileType === 0
+    return TileType === 1
       ? "water.gif"
-      : TileType === 1
+      : TileType === 0
       ? "grass.gif"
       : "wall.jpg";
   };
