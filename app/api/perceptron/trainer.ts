@@ -1,12 +1,23 @@
 let weights: number[] = [];
 let bias = 1;
 const MAX_EPOCHS = 1000;
+
+function splitData<T>(data: T[], trainRatio: number = 0.8): { trainData: T[]; testData: T[] } {
+  const shuffled = [...data].sort(() => Math.random() - 0.5);
+  const splitIndex = Math.floor(data.length * trainRatio);
+  return {
+    trainData: shuffled.slice(0, splitIndex),
+    testData: shuffled.slice(splitIndex),
+  };
+}
+
 export function trainPerceptron(
   data: { inputs: number[]; YActual: number }[],
   learningRate = 0.1,
   maxEpochs = 10000
 ) {
-  const numFeatures = data[0].inputs.length;
+  const { trainData, testData } = splitData(data, 0.8);
+  const numFeatures = trainData[0].inputs.length;
   weights = Array.from({ length: numFeatures }, () => Math.random() - 0.5);
 
   for (let epoch = 0; epoch < maxEpochs; epoch++) {
@@ -29,8 +40,25 @@ export function trainPerceptron(
       break;
     }
   }
-
+  testPerceptron(testData);
   return { weights, bias };
+}
+
+
+export function testPerceptron(
+  testData: { inputs: number[]; YActual: number }[]
+) {
+  let correct = 0;
+
+  for (const { inputs, YActual } of testData) {
+    const prediction = predict(inputs, weights, bias);
+    if (prediction === YActual) {
+      correct++;
+    }
+  }
+
+  const accuracy = (correct / testData.length) * 100;
+  console.log(`Test Accuracy: ${accuracy.toFixed(2)}%`);
 }
 
 export function predict(
