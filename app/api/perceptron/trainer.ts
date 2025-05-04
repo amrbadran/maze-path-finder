@@ -23,7 +23,7 @@ export function trainPerceptron(
   for (let epoch = 0; epoch < maxEpochs; epoch++) {
     let totalError = 0;
 
-    for (const { inputs, YActual } of data) {
+    for (const { inputs, YActual } of trainData) {
       const prediction = predict(inputs, weights, bias);
       const error = YActual - prediction;
 
