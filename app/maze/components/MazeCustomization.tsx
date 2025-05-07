@@ -9,7 +9,7 @@ import PathFinder from "../API/PathFinder";
 import { trainPerceptronModel } from "../API/trainer";
 import PathDrawer from "../helper/PathDrawer";
 import showAlert from "./ui/Alert";
-
+import MazeGrid from "./MazeGrid";
 const MazeCustomization = ({
   Rows,
   Cols,
@@ -25,6 +25,9 @@ const MazeCustomization = ({
 }) => {
   const router = useRouter();
   const [formState, setFormState] = useState({ rows: Rows, cols: Cols });
+  const [isEditable, setIsEditable] = useState(false);
+  const [mazeKey, setMazeKey] = useState(0);
+  
   const {
     gridData,
     setGridData,
@@ -33,6 +36,12 @@ const MazeCustomization = ({
     endPosition,
     setEndPosition,
   } = useContext(GridContext);
+
+  const handleRegenerateMaze = () => {
+    setMazeKey(prev => prev + 1);
+    regenerateMaze();
+  };
+
   return (
     <div className="border-2 border-[#a97451] shadow rounded-lg mx-auto w-full max-w-5xl py-8 px-4 my-8">
       {/* Row of inputs and first button */}
@@ -42,7 +51,7 @@ const MazeCustomization = ({
             defaultValue={Rows}
             label="Rows"
             onChangeHandler={(e) => {
-              const value = e.target.value;
+              const value = Number(e.target.value);
               if (isNaN(value)) return;
               setFormState((prev) => ({ ...prev, rows: value }));
             }}
@@ -53,7 +62,7 @@ const MazeCustomization = ({
             defaultValue={Cols}
             label="Columns"
             onChangeHandler={(e) => {
-              const value = e.target.value;
+              const value = Number(e.target.value);
               if (isNaN(value)) return;
               setFormState((prev) => ({ ...prev, cols: value }));
             }}
@@ -66,18 +75,23 @@ const MazeCustomization = ({
             handler={() => {
               handleRows(formState.rows);
               handleCols(formState.cols);
-              regenerateMaze();
+              handleRegenerateMaze();
             }}
           />
         </div>
       </div>
-      <div className="w-full mt-10 flex justify-center gap-4">
+      <div className="w-full mt-10 flex justify-center gap-4 flex-wrap">
         <Button
           label="Back"
           colorKey="red"
           handler={() => {
             router.back();
           }}
+        />
+        <Button
+          label={isEditable ? "Exit Edit Mode" : "Enter Edit Mode"}
+          colorKey="blue"
+          handler={() => setIsEditable(!isEditable)}
         />
         <Button
           label="Solve Maze Using A*"
@@ -104,11 +118,23 @@ const MazeCustomization = ({
               end,
               await trainPerceptronModel()
             );
-            console.log(result);
             PathDrawer(gridData, setGridData, result.path);
           }}
         />
       </div>
+      <div className="mt-8">
+        <MazeGrid 
+          rows={Rows} 
+          cols={Cols} 
+          mazeKey={mazeKey} 
+          isEditable={isEditable}
+        />
+      </div>
+      {isEditable && (
+        <div className="mt-4 text-center text-sm text-gray-600">
+          <p>Right-click on tiles to change their type (Grass → Water → Wall)</p>
+        </div>
+      )}
     </div>
   );
 };

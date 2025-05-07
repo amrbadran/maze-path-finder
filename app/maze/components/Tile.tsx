@@ -6,17 +6,21 @@ const Tile = ({
   elevation,
   TileType,
   onTileClick,
+  onTileTypeChange,
   isStart,
   isEnd,
   isOnPath,
+  isEditable,
 }: {
   tileHeight: string;
   elevation: number;
   TileType: number;
   onTileClick?: () => void;
+  onTileTypeChange?: (newType: number) => void;
   isStart?: boolean;
   isEnd?: boolean;
   isOnPath?: boolean;
+  isEditable?: boolean;
 }) => {
   const background = () => {
     return TileType === 1
@@ -34,12 +38,21 @@ const Tile = ({
     }
   };
 
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (isEditable && onTileTypeChange) {
+      const newType = (TileType + 1) % 3;
+      onTileTypeChange(newType);
+    }
+  };
+
   return (
     <div
       className={`bg-gradient-to-tl from-[#6e4b34] to-[#885d40] relative aspect-square flex items-center justify-center overflow-hidden ${
         isGrass ? "cursor-pointer" : ""
       }`}
       onClick={handleClick}
+      onContextMenu={handleRightClick}
       style={{
         minWidth: "30px",
         minHeight: "30px",
@@ -66,6 +79,11 @@ const Tile = ({
         <span
           className={`w-6 h-6 rounded-full bg-blue-600 border-2 border-white absolute z-20 `}
         ></span>
+      )}
+      {isEditable && (
+        <span className="absolute top-0 left-0 text-xs text-white bg-black bg-opacity-50 p-1 z-20">
+          {TileType === 0 ? 'Grass' : TileType === 1 ? 'Water' : 'Wall'}
+        </span>
       )}
     </div>
   );

@@ -3,14 +3,17 @@ import Tile from "./Tile";
 import { GridContext } from "../context/GridContext";
 import GridPreparation from "../helper/GridPreparation";
 import { clearPath } from "../helper/PathDrawer";
+
 const MazeGrid = ({
   rows,
   cols,
   mazeKey,
+  isEditable = false,
 }: {
   rows: number;
   cols: number;
   mazeKey: number;
+  isEditable?: boolean;
 }) => {
   const {
     gridData,
@@ -65,6 +68,14 @@ const MazeGrid = ({
     }
   };
 
+  const handleTileTypeChange = (row: number, col: number, newType: number) => {
+    if (!isEditable) return;
+    
+    const newGridData = [...gridData];
+    newGridData[row][col].tileType = newType;
+    setGridData(newGridData);
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto border-2 border-[#a97451] rounded-lg shadow-md">
       <div
@@ -82,11 +93,13 @@ const MazeGrid = ({
               elevation={tile.elevation}
               TileType={tile.tileType}
               onTileClick={() => handleTileClick(rowIdx, colIdx)}
+              onTileTypeChange={(newType) => handleTileTypeChange(rowIdx, colIdx, newType)}
               isStart={
                 startPosition?.row === rowIdx && startPosition?.col === colIdx
               }
               isEnd={endPosition?.row === rowIdx && endPosition?.col === colIdx}
               isOnPath={tile.isOnPath}
+              isEditable={isEditable}
             />
           ))
         )}
