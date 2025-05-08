@@ -1,6 +1,7 @@
 let weights: number[] = [];
-let bias = 1;
-const MAX_EPOCHS = 1000;
+let bias = 0;
+
+const MAX_EPOCHS = 10000;
 
 function splitData<T>(data: T[], trainRatio: number = 0.8): { trainData: T[]; testData: T[] } {
   const shuffled = [...data].sort(() => Math.random() - 0.5);
@@ -11,14 +12,37 @@ function splitData<T>(data: T[], trainRatio: number = 0.8): { trainData: T[]; te
   };
 }
 
+function normalize(data: { inputs: number[] }[]) {
+  const numFeatures = data[0].inputs.length;
+  const mins = Array(numFeatures).fill(Infinity);
+  const maxes = Array(numFeatures).fill(-Infinity);
+
+  for (const row of data) {
+    for (let i = 0; i < numFeatures; i++) {
+      mins[i] = Math.min(mins[i], row.inputs[i]);
+      maxes[i] = Math.max(maxes[i], row.inputs[i]);
+    }
+  }
+
+  for (const row of data) {
+    for (let i = 0; i < numFeatures; i++) {
+      row.inputs[i] = (row.inputs[i] - mins[i]) / (maxes[i] - mins[i] || 1);
+    }
+  }
+}
+
 export function trainPerceptron(
   data: { inputs: number[]; YActual: number }[],
-  learningRate = 0.1,
-  maxEpochs = 10000
+  learningRate = 0.05,
+  maxEpochs = MAX_EPOCHS
 ) {
+  normalize(data);
+
   const { trainData, testData } = splitData(data, 0.8);
   const numFeatures = trainData[0].inputs.length;
+
   weights = Array.from({ length: numFeatures }, () => Math.random() - 0.5);
+  bias = 0;
 
   for (let epoch = 0; epoch < maxEpochs; epoch++) {
     let totalError = 0;
@@ -40,10 +64,10 @@ export function trainPerceptron(
       break;
     }
   }
+
   testPerceptron(testData);
   return { weights, bias };
 }
-
 
 export function testPerceptron(
   testData: { inputs: number[]; YActual: number }[]
@@ -56,7 +80,6 @@ export function testPerceptron(
       correct++;
     }
   }
-
   const accuracy = (correct / testData.length) * 100;
   console.log(`Test Accuracy: ${accuracy.toFixed(2)}%`);
 }
