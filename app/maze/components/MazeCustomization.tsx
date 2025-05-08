@@ -27,7 +27,7 @@ const MazeCustomization = ({
   const [formState, setFormState] = useState({ rows: Rows, cols: Cols });
   const [isEditable, setIsEditable] = useState(false);
   const [mazeKey, setMazeKey] = useState(0);
-  
+
   const {
     gridData,
     setGridData,
@@ -38,7 +38,7 @@ const MazeCustomization = ({
   } = useContext(GridContext);
 
   const handleRegenerateMaze = () => {
-    setMazeKey(prev => prev + 1);
+    setMazeKey((prev) => prev + 1);
     regenerateMaze();
   };
 
@@ -123,16 +123,18 @@ const MazeCustomization = ({
         />
       </div>
       <div className="mt-8">
-        <MazeGrid 
-          rows={Rows} 
-          cols={Cols} 
-          mazeKey={mazeKey} 
+        <MazeGrid
+          rows={Rows}
+          cols={Cols}
+          mazeKey={mazeKey}
           isEditable={isEditable}
         />
       </div>
       {isEditable && (
         <div className="mt-4 text-center text-sm text-gray-600">
-          <p>Right-click on tiles to change their type (Grass → Water → Wall)</p>
+          <p>
+            Right-click on tiles to change their type (Grass → Water → Wall)
+          </p>
         </div>
       )}
     </div>

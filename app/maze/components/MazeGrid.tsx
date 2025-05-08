@@ -70,7 +70,7 @@ const MazeGrid = ({
 
   const handleTileTypeChange = (row: number, col: number, newType: number) => {
     if (!isEditable) return;
-    
+
     const newGridData = [...gridData];
     newGridData[row][col].tileType = newType;
     setGridData(newGridData);
@@ -93,7 +93,9 @@ const MazeGrid = ({
               elevation={tile.elevation}
               TileType={tile.tileType}
               onTileClick={() => handleTileClick(rowIdx, colIdx)}
-              onTileTypeChange={(newType) => handleTileTypeChange(rowIdx, colIdx, newType)}
+              onTileTypeChange={(newType) =>
+                handleTileTypeChange(rowIdx, colIdx, newType)
+              }
               isStart={
                 startPosition?.row === rowIdx && startPosition?.col === colIdx
               }

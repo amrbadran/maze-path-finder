@@ -1,4 +1,5 @@
 "use client";
+import Button from "./ui/Button";
 
 export default function HomeScreen({ onStart }: { onStart: () => void }) {
   return (
@@ -8,21 +9,9 @@ export default function HomeScreen({ onStart }: { onStart: () => void }) {
       </h1>
 
       <div className="flex flex-row space-x-8">
-      <button
-          onClick={() => window.close()}
-          className="bg-red-600 hover:bg-red-500 text-white text-xl px-8 py-3 rounded-xl shadow-md hover:scale-105 transition-all duration-300"
-        >
-          ✖ Exit
-        </button>
-        
-        <button
-          onClick={onStart}
-          className="bg-green-600 hover:bg-green-500 text-white text-xl px-8 py-3 rounded-xl shadow-md hover:scale-105 transition-all duration-300"
-        >
-          ▶ Start Game
-        </button>
+        <Button label="✖ Exit" colorKey="red" handler={() => window.close()} />
 
-        
+        <Button label="▶ Start Game" colorKey="green" handler={onStart} />
       </div>
     </div>
   );

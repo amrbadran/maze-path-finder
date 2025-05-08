@@ -82,7 +82,7 @@ const Tile = ({
       )}
       {isEditable && (
         <span className="absolute top-0 left-0 text-xs text-white bg-black bg-opacity-50 p-1 z-20">
-          {TileType === 0 ? 'Grass' : TileType === 1 ? 'Water' : 'Wall'}
+          {TileType === 0 ? "Grass" : TileType === 1 ? "Water" : "Wall"}
         </span>
       )}
     </div>
