@@ -26,13 +26,13 @@ const Tile = ({
 }) => {
   const background = () => {
     return TileType === 1
-      ? "water.gif"
+      ? "water.png"
       : TileType === 0
-      ? "grass.gif"
+      ? "grass.png"
       : "wall.jpg";
   };
 
-  const isGrass = background() === "grass.gif";
+  const isGrass = background() === "grass.png";
 
   const handleClick = () => {
     if (isGrass && onTileClick) {
