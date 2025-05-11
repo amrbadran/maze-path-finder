@@ -7,13 +7,5 @@ import MazePage from "./maze/page"; // Reuse the maze logic already built
 export default function MainPage() {
   const [started, setStarted] = useState(false);
 
-  return (
-    <>
-      {!started ? (
-        <HomeScreen onStart={() => setStarted(true)} />
-      ) : (
-        <MazePage />
-      )}
-    </>
-  );
+  return <HomeScreen onStart={() => {}} />;
 }

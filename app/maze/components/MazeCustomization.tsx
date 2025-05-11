@@ -118,7 +118,7 @@ const MazeCustomization = ({
               end,
               await trainPerceptronModel()
             );
-            PathDrawer(gridData, setGridData, result.path);
+            PathDrawer(gridData, setGridData, result.path, result.testedPath);
           }}
         />
       </div>

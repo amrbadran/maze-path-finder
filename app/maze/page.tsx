@@ -65,8 +65,6 @@ export default function Home() {
           handleCols={setCols}
           regenerateMaze={() => setMazeKey((prev) => prev + 1)}
         />
-
-        <MazeGrid rows={rows} cols={cols} mazeKey={mazeKey} />
       </GridContext.Provider>
     </>
   );

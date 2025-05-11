@@ -101,6 +101,7 @@ const MazeGrid = ({
               }
               isEnd={endPosition?.row === rowIdx && endPosition?.col === colIdx}
               isOnPath={tile.isOnPath}
+              isOnTestedPath={tile.isOnTestedPath}
               isEditable={isEditable}
             />
           ))

@@ -1,6 +1,7 @@
 import { Cell } from "@/app/maze/types/Cell";
 import { NextResponse } from "next/server";
 import { getPath, manhatan, isSafeTile } from "./helper";
+import test from "node:test";
 
 const WALL = 2;
 const WATER = 1;
@@ -32,9 +33,15 @@ export async function POST(request: Request) {
     closedList.add(`${currentNode.row},${currentNode.col}`);
 
     if (currentNode.row === end.row && currentNode.col === end.col) {
+      // return the path and return the tested path
+      let tested = Array.from(closedList).map((key: any) => {
+        const [row, col] = key.split(",").map(Number);
+        return { row, col };
+      });
       return NextResponse.json({
         path: getPath(cameFrom, end),
         message: "Path found",
+        testedPath: tested,
       });
     }
 

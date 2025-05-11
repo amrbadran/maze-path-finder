@@ -4,4 +4,5 @@ export type Cell = {
   tileType: number;
   minObstacleDistance: number;
   isOnPath: boolean;
+  isOnTestedPath: boolean;
 };

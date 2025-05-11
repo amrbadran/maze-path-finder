@@ -1,9 +1,12 @@
 let weights: number[] = [];
 let bias = 0;
 
-const MAX_EPOCHS = 10000;
+const MAX_EPOCHS = 60;
 
-function splitData<T>(data: T[], trainRatio: number = 0.8): { trainData: T[]; testData: T[] } {
+function splitData<T>(
+  data: T[],
+  trainRatio: number = 0.8
+): { trainData: T[]; testData: T[] } {
   const shuffled = [...data].sort(() => Math.random() - 0.5);
   const splitIndex = Math.floor(data.length * trainRatio);
   return {

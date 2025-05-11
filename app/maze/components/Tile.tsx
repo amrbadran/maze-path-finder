@@ -10,6 +10,7 @@ const Tile = ({
   isStart,
   isEnd,
   isOnPath,
+  isOnTestedPath,
   isEditable,
 }: {
   tileHeight: string;
@@ -20,6 +21,7 @@ const Tile = ({
   isStart?: boolean;
   isEnd?: boolean;
   isOnPath?: boolean;
+  isOnTestedPath?: boolean;
   isEditable?: boolean;
 }) => {
   const background = () => {
@@ -75,11 +77,13 @@ const Tile = ({
           {elevation}
         </span>
       </div>
-      {isOnPath && (
+      {(isOnTestedPath || isOnPath) && (
         <span
-          className={`w-6 h-6 rounded-full bg-blue-600 border-2 border-white absolute z-20 `}
+          className={`w-6 h-6 rounded-full border-2 border-white absolute z-20 
+      ${isOnPath ? "bg-blue-600" : "bg-yellow-600 opacity-50"}`}
         ></span>
       )}
+
       {isEditable && (
         <span className="absolute top-0 left-0 text-xs text-white bg-black bg-opacity-50 p-1 z-20">
           {TileType === 0 ? "Grass" : TileType === 1 ? "Water" : "Wall"}
